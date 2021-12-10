@@ -1,15 +1,24 @@
 package com.company;
 
+import java.util.logging.Logger;
+
 public class Jardin {
 
     private int nombreLigne;
     private int nombreColonne;
     private int numeroColonneToyeu;
+    private int indiceDebartZoneOmbre;
+    private int indiceFinZoneOmbre;
 
-    public Jardin(int nombre_ligne, int nombre_colonnes, int numeroColonneToyeu) {
+    private static final Logger logger = Logger.getLogger(Jardin.class.getName());
+
+    public Jardin(int nombre_ligne, int nombre_colonnes, int numeroColonneToyeu,
+                  int indiceDebartZoneOmbre, int indiceFinZoneOmbre) {
         this.nombreLigne = nombre_ligne;
         this.nombreColonne = nombre_colonnes;
         this.numeroColonneToyeu = numeroColonneToyeu;
+        this.indiceDebartZoneOmbre = indiceDebartZoneOmbre;
+        this.indiceFinZoneOmbre = indiceFinZoneOmbre;
     }
 
     /**
@@ -20,31 +29,19 @@ public class Jardin {
     }
 
     /**
-     * Remplissage de tous la jardin
-     * <p>
-     * public void filling(int[][] matrix) {
-     * Scanner sc = new Scanner(System.in);
-     * for (int i = 0; i < this.nombreLigne; i++) {
-     * for (int j = 0; j < this.nombreColonne; j++) {
-     * if (j == this.numeroColonneToyeu - 1) {
-     * continue;
-     * } else {
-     * System.out.print(String.format("Entrez a[%d][%d] : ", i, j));
-     * matrix[i][j] = sc.nextInt();
-     * }
-     * }
-     * }
-     * }
-     **/
-
-    /**
      * Remplissage de jardin par une plante
      **/
     public void fillingByOnePlante(int rowIndex, int columnIndex, Plante plante, Plante[][] matrix) throws Exception {
         if (columnIndex == this.numeroColonneToyeu - 1) {
-            System.out.println("The pipe is here !");
+            logger.warning(String.format("La plante d'indice [%d][%d] confused with the pipe ", rowIndex, columnIndex));
+            throw new Exception();
         } else {
-            matrix[rowIndex][columnIndex] = plante;
+            if (matrix[rowIndex][columnIndex] != null) {
+                logger.warning(String.format("La position [%d][%d] n'est pas vide ", rowIndex, columnIndex));
+                throw new Exception();
+            } else {
+                matrix[rowIndex][columnIndex] = plante;
+            }
         }
     }
 
@@ -53,7 +50,7 @@ public class Jardin {
      **/
     public void display(Plante[][] matrix) {
         System.out.println("-------------------------------");
-        System.out.println(String.format("Remind: Pipe position is %d ", this.numeroColonneToyeu));
+        System.out.print(String.format("Remind: Pipe position is %d ", this.numeroColonneToyeu));
         String[][] auxMatrix = this.convertPlanteMatrixToStringMatrix(matrix);
 
         for (String[] strings : auxMatrix) {
@@ -64,7 +61,9 @@ public class Jardin {
         }
     }
 
-    // Convert the matrix of Plante to String matrix using the code name as input to he converted matrix
+    /**
+     * Convert the matrix of Plante to String matrix using the code name as input to the converted matrix
+     **/
     private String[][] convertPlanteMatrixToStringMatrix(Plante[][] matrix) {
         String[][] auxMatrix = new String[matrix.length][matrix.length];
         for (int i = 0; i < matrix.length; i++) {
@@ -98,7 +97,9 @@ public class Jardin {
 
     }
 
-    // Tester si n'importe quelle case est incompatible avec ses voisines.
+    /**
+     * Tester si n'importe quelle case est incompatible avec ses voisines.
+     **/
     public boolean isIncompatible(int i, int j, Plante[][] matrix) {
         boolean isIncompatible = false;
         try {
@@ -116,7 +117,10 @@ public class Jardin {
         return isIncompatible;
     }
 
-    // Tester si deux cases données sont incompatible
+
+    /**
+     * Tester si deux cases données sont incompatible
+     **/
     public boolean isIncompatibleBetweenTwoPlante(int i, int j, int x, int y, Plante[][] matrix) {
         boolean isIncompatible = false;
         try {
@@ -131,36 +135,37 @@ public class Jardin {
         return isIncompatible;
     }
 
-    //Tester si une case donnée est loin du tuyau d’irrigation
+    /**
+     * Tester si une case donnée est loin du tuyau d’irrigation
+     **/
     public boolean isConfusedWithThePipe(int j) {
-        System.out.println(j + " " + this.numeroColonneToyeu);
         return j == this.numeroColonneToyeu - 1;
     }
 
     /**
-     * Getters && Setters
+     * Tester si une case donnée est à l’ombre
      **/
-    public int getNombreLigne() {
-        return nombreLigne;
+    public boolean isOmbre(int LigneDonne) {
+        return LigneDonne - 1 >= indiceDebartZoneOmbre && LigneDonne - 1 <= indiceFinZoneOmbre - 1;
     }
 
-    public void setNombreLigne(int nombreLigne) {
-        this.nombreLigne = nombreLigne;
+
+    /**
+     * Si le jardin est correctement amenagees
+     **/
+    public boolean jardinIsProperlyEquipped(Plante[][] matrix, Jardin jardin) {
+
+        Plante plante = new Plante();
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (!plante.isProperlyEquipped(matrix, jardin)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    public int getNombreColonne() {
-        return nombreColonne;
-    }
 
-    public void setNombreColonne(int nombreColonne) {
-        this.nombreColonne = nombreColonne;
-    }
-
-    public int getNumeroColonneToyeu() {
-        return numeroColonneToyeu;
-    }
-
-    public void setNumeroColonneToyeu(int numeroColonneToyeu) {
-        this.numeroColonneToyeu = numeroColonneToyeu;
-    }
 }
