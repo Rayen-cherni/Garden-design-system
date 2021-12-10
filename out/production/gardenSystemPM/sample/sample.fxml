@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="353.0" prefWidth="538.0" GridPane.columnIndex="1">
+         <children>
+            <TextField fx:id="ligneMatrix" layoutX="36.0" layoutY="82.0" onKeyTyped="#getLigneMatrixSize" prefHeight="24.0" prefWidth="313.0" promptText="Saisir le nombre de lignes dans la matrice" />
+            <TextField fx:id="colonneMatrix" layoutX="36.0" layoutY="139.0" onKeyTyped="#getColonneMatrixSize" prefHeight="24.0" prefWidth="313.0" promptText="Saisir le nombre de colonnes dans la matrice" />
+            <TextField fx:id="debartZoneOmbre" layoutX="36.0" layoutY="246.0" onKeyTyped="#getLigneDebartZoneOmbre" prefHeight="24.0" prefWidth="373.0" promptText="Saisir le numéro de ligne de débart de la zone ombre" />
+            <TextField fx:id="colonneToyeu" layoutX="36.0" layoutY="194.0" onKeyTyped="#getPipePosition" prefHeight="24.0" prefWidth="283.0" promptText="Saisir le numéro de colonne de toyeu" />
+            <Text layoutX="131.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Garden Design System Dashbaord" textAlignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text layoutX="36.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir le nombre de lignes dans la matrice" />
+            <Text layoutX="36.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir le nombre de colonnes dans la matrice" />
+            <TextField fx:id="finZoneOmbre" alignment="TOP_LEFT" layoutX="33.0" layoutY="300.0" onKeyTyped="#getLigneFinZoneOmbre" prefHeight="24.0" prefWidth="373.0" promptText="Saisir le numéro de ligne de fin de la zone ombre" />
+            <Text layoutX="34.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir le numéro de colonne de toyeu" />
+            <Text layoutX="33.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir le numéro de ligne de débart de la zone ombre" />
+            <Text layoutX="36.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir le numéro de ligne de fin de la zone ombre" />
+            <Button fx:id="button" layoutX="207.0" layoutY="339.0" mnemonicParsing="false" onKeyTyped="#runCode" text="Run">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>
